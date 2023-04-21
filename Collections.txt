@@ -1,0 +1,207 @@
+//Collections//
+Collections in Apex can be Set, List and Map. 
+There is no limit on the number of items a collection can hold.
+However, there is a general limit on heap size.
+
+Set=>
+A set is an unordered collection of elements that do not contain any duplicates.
+A set is an unordered collection—you can’t access a set element at a specific index.
+You can only iterate over set elements.
+Syntax :
+Set<DataType> varName = new Set<DataType>();
+
+List=>
+A list is an ordered collection of elements that are distinguished by their indices.
+Syntax :
+List<DataType> varName = new List<DataType>();
+
+Map=>
+A map is a collection of key-value pairs where each unique key maps to a single value.
+Keys can be any primitive datatype while values 
+can include primitives, apex objects, sObjects and other collections.
+Syntax :
+Map<DataType_key, DataType_Value> varName = new Map<DataType_key, DataType_Value>();
+
+
+
+                                    <<====Set====>>
+									
+Declaration of an Set 
+Set<Integer> intSet = new Set<Integer>(); // declaration of Integer Set
+Set<String> strSet = new Set<String>();   // declaration of String Set
+Set<Account> accSet = new Set<Account>(); // declaration of sObject Set
+
+Set with the hardcoded values
+Set<Integer> intSet = new Set<Integer>{1, 2, 3, 4, 5}; // declaration of Integer Set
+Set<String> strSet = new Set<String>{'A', 'B', 'C'};   // declaration of String Set
+
+Set Methods ::
+ 
+public  Class SetMethodsClass{
+	public static void SetMethodsClassMethod()
+	{
+	 Set<integer> EmptySet = new Set<integer>();                            //Set declaration
+        system.debug('Empty set is '+ EmptySet);                            //{}
+		
+     Set<integer> intSet = new Set<integer>{1,2,3,4,5};                     //New Set declaration and initialization with hardcoded values
+        system.debug('intSet having values are '+ intSet);                  //{1, 2, 3, 4, 5}
+        system.debug('intSet contain10 false '+ intSet.contains(10));       //False
+        system.debug('intSet containAll true '+ intSet.containsAll(intSet));//True
+        intSet.add(20);                                                     //Adding 20 intSet
+        system.debug('intSet add 20 '+ intSet);                             //{1, 2, 3, 4, 5, 20}
+		
+     Set<integer>intSet1 = new Set<integer>{11,22,33,44,55};                //New Set declaration and initialization with hardcoded values
+        intSet1.addall(intSet);                                             //Adding all values of intSet to intSet1
+        system.debug('nos of intSet gets add into intSet1 '+ intSet1);      //{1, 2, 3, 4, 5, 11, 20, 22, 33, 44, 55}
+        intSet1.remove(11);                                                 //Removing 11 value from intSet1                                                
+        system.debug('intSet1 remove 11 '+ intSet1);                        //{1, 2, 3, 4, 5, 20, 22, 33, 44, 55}
+        intSet1.retainAll(intSet);                                          //Retaining values of intSet from intSet1
+        system.debug('Nos are retainAll' + intSet1);                        //{1, 2, 3, 4, 5, 20}
+        system.debug('gives size of intSet1 '+ intSet1.size());             //Size() gives the size of Set 6
+		
+     Set<integer>intSet2 = intSet1.clone();                                 //New Set declaration and initialization by cloning the values of intSet1 to intSet2
+        system.debug('clone intSet1 into intSet2'+ intSet2);                //{1, 2, 3, 4, 5, 20}
+        intSet1.removeAll(intSet1);                                         //Removing all values from intSet1
+        system.debug('intSet1 removeall '+ intSet1);                        //{}
+        intSet2.clear();                                                    //Clearing all values from intSet2
+        system.debug('clear intSet2 '+ intSet2);                            //{}
+		system.debug('Check intSet2 is empty or not ' + intSet2);           //True  
+		
+     Set<integer> newSet = new Set<integer>{1,1,2,3,4,4,5};                 //New Set declaration and initialization with hardcoded values
+        system.debug('Set dont allow duplicates'+ newSet);                  //{1,2,3,4,5}
+	}
+}
+
+Clear();     => Removes all of the elements from the set.
+removeAll(); => Removes the elements in the specified set from the original set if they are present.
+
+set<integer> i = new set<integer>{1,1,2,2,3,4,5};//1,2,3,4,5
+        set<integer> i1 = new set<integer>();
+        	i1.addall(i);
+            i1.add(7);
+            i1.removeAll(i1);
+        system.debug(i1);//7
+     
+            //i1.clear();
+        //system.debug(i1);//=> {}
+
+
+                                    <<====List====>>
+									
+Declaration of an List 
+List<Integer> intList = new List<Integer>(); // declaration of Integer List
+List<String> strList = new List<String>();   // declaration of String List
+List<Account> accList = new List<Account>(); // declaration of sObject List
+
+List with the hardcoded values
+List<Integer> intList = new List<Integer>{1, 2, 3, 4, 5, 5}; // declaration of Integer List
+List<String> strList = new List<String>{'A', 'B', 'B', 'C'};   // declaration of String Set
+
+List Methods ::
+ 
+public  Class ListMethodsClass{
+	public static void ListMethodsClassMethod()
+	{
+	 List<integer> EmptyList = new List<integer>();                               //List declaration 
+        system.debug('Empty List is ' + EmptyList);                               //()
+		
+     List<integer> intList = new List<integer>{1,2,3,4,5};                        //New List declaration and initialization with hardcoded values 
+        system.debug('List having 1 to 5 nos are ' + intList);                    //(1, 2, 3, 4, 5)
+        intList.add(6);                                                           //Adding 6 and 7 into intList
+        intList.add(7);
+        system.debug('adding 6 and 7 in the intList ' + intList);                 //(1, 2, 3, 4, 5, 6, 7)
+        system.debug('intList1 contains 10 => false ' + intList.contains(10));    //false
+		
+     List<integer> intList1 = new List<integer>{8,9,10};                          //New List declaration and initialization with hardcoded values 
+	    intList1.addall(intList);                                                 //Adding all value of intList into intList1
+	    system.debug('nos of intList gets add into intList1 ' + intList1);        //(8, 9, 10, 1, 2, 3, 4, 5, 6, 7)
+        intList1.sort();                                                          //Sort method arranged all the values in aescending order
+        system.debug('list gets sorted in ascending order ' + intList1);          //(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+        system.debug('gives the size of the intList1 ' + intList1.size());        //Size() give the size of the List 10
+        system.debug('remove 1st no so give index no here ' + intList1.remove(0));//it will remove 0th index value i.e 1
+        system.debug('after removing 0th index no '+ intList1);                   //(2, 3, 4, 5, 6, 7, 8, 9, 10)
+		
+     List<integer> intList2 = intList1.clone();                                   //Clonning values of intList1 into the intList2
+        system.debug('clone intList1 into intList2 ' + intList2);                 //(2, 3, 4, 5, 6, 7, 8, 9, 10)
+        system.debug('get the no having 3rd index '+ intList2.get(3));            //Get method gives the values related to that index
+        intList2.set(2,100);                                                      //Set method sets the value 100 in the 2nd index and 4 will get override
+        system.debug('substitute the 2nd index no with 100' + intList2);          //(2, 3, 100, 5, 6, 7, 8, 9, 10)
+        intList2.clear();                                                         //Clear removes all the values in the Set
+        system.debug('clear all nos in intList2 '+ intList2);                     //()
+        system.debug('check the list is empty or not ' + intList2.isEmpty());     //True
+        system.debug('check the two list equals or not '+ intList2.equals(intList1));//False
+		
+     List<integer> newList = new List<integer>{1,1,2,3,4,4,5};                 //New List declaration and initialization with hardcoded values 
+        system.debug('List allows duplicates '+ newList);//(1, 1, 2, 3, 4, 4, 5)  //List allows duplicates values
+	}
+}
+
+
+                                    <<====Map====>>
+									
+Declaration of an Map 
+Map<Integer, String> newMap = new Map<Integer, String>();    // declaration of Integer Map
+Map<String, Integer> newMap = new Map<String, Integer>();    // declaration of String Map
+Map<Id, Account> accMap = new Map<Id, Account>();            // declaration of sObject Map
+
+Map with the hardcoded values
+Map<Integer, String> newMap = new Map<Integer, String>{1 => 'A', 2 => 'B', 3 => 'C'};   // declaration of Integer,String Map
+Map<String, Integer> newMap = new Map<String, Integer>{'A' => 1, 'B' => 2, 'C' => 3};   // declaration of String,Integer Map
+
+Map Methods ::
+ 
+public  Class MapMethodsClass{
+	public static void MapMethodsClassMethod()
+	{
+	  Map<Integer, String> newMap = new Map<Integer, String>{1=>'A'};                    //New Map declaration and initialization with hardcoded values 
+        newMap.put(2, 'B');                                                              //Adding 
+        newMap.put(1, 'C');                                                              // It gave latest value i.e. C... Override 
+        System.debug('NewMap =>' + newMap);                                              // show keys and value NewMap =>{1=C, 2=B}
+        
+        Map<Integer, String> newMap1 = new Map<Integer, String>(newMap);                 // Adding newMap to newMap1
+        newMap1.put(3, 'A');
+        System.debug('newMap1 =>' + newMap1);                                            //newMap1 =>{1=C, 2=B, 3=A}
+        System.debug('newMap1 =>' + newMap1.size());                                     //Size gives the size of map i.e 3
+        newMap1.Clear();                                                                 //clear() - Removes all of the key-value mappings from the map.
+		system.debug('after clearing newMap1' + newMap1);                                //{}
+        
+        Map<Integer, String> newMap2 = newMap1.clone();                                  // clone duplicates all the key-value in newMap2 from newMap1
+        System.debug('Clone newMap2 =>' + newMap2);                                      //{}
+        
+        //Returns true if the map contains a mapping for the same key.
+        Map<Integer, Integer> a = new Map<Integer, Integer>{1=>1, 2=>1, 1=>4, 2=>3};
+        
+        Map<Integer, Integer> a1 = new Map<Integer, Integer>();
+        a1.put(1, 1);
+        a1.put(2, 1);
+        a1.put(1, 4);
+        a1.put(2, 3);
+        System.debug('equals() =>'+ a1.equals(a));                                        // if both map are same then true else false...
+        Integer b = a1.get(4);                                                            //get returns the values of that keys
+        Integer c = a1.get(2);
+        System.debug('get keys =>' + b);                                                 // null ... 4th key is not present in a1
+        System.debug('get keys =>' + c);                                                 // returns 3 take recent value...override
+        
+		System.debug('a keyset =>' + a.keyset());                                        //gives all keys of a map =>a keyset =>{1, 2}
+        System.debug('a values =>' + a.values());                                        //gives all values of a map => a values =>(4, 3)
+		
+        boolean d = a.containskey(1);                                                    //containskey returns boolean
+        boolean e = a.containskey(5);
+        System.debug('Containskey() => ' + d);                                           //True bcoz value is exist
+        System.debug('Containskey() => ' + e);                                           //False
+        
+        Map<String, String> map1 = new Map<String, String>();
+        map1.put('Red','tshirt');
+        Map<String, String> map2 = new Map<String, String>();
+        map2.put('Blue','pant');
+
+        map2.putAll(map1);                                                               // Add map1 entries to map2
+        System.debug('putall map2 becomes =>' + map2);                                   //putall map2 becomes =>{Blue=pant, Red=tshirt}
+        
+        String myColor = map2.remove('Blue');                                            //if we remove key then value also remove bcoz each key have unique value
+        System.debug('map2 without Blue =>' + map2);                                     //map2 without Blue =>{Red=tshirt} 
+	}
+}
+
+
+
